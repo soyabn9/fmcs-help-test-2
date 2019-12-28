@@ -48,12 +48,9 @@
     <script>
       window.$docsify = {
         alias: {
-          '.*?/README': 'https://raw.githubusercontent.com/soyabn9/fmcs-help-dev/master/README.md',
-          '.*?/_coverpage.md': 'https://raw.githubusercontent.com/soyabn9/fmcs-help-dev/master/_coverpage.md',
-          '.*?/discord-server.md': 'https://raw.githubusercontent.com/soyabn9/fmcs-help-dev/master/discord-server.md',
-          '.*?/custom-ip.md': 'https://raw.githubusercontent.com/soyabn9/fmcs-help-dev/master/custom-ip.md',
-          '.*?/_sidebar.md': 'https://raw.githubusercontent.com/soyabn9/fmcs-help-dev/master/_sidebar.md',
-          "/.*/_navbar.md": "/_navbar.md"
+          "/_coverpage.md": "https://raw.githubusercontent.com/soyabn9/fmcs-help/master/_coverpage.md",
+          "/_navbar.md": "https://raw.githubusercontent.com/soyabn9/fmcs-help/master/_navbar.md",
+          "/en/(.*)": "https://raw.githubusercontent.com/soyabn9/fmcs-help-en/master/$1"
         },
         auto2top: true,
         coverpage: true,
@@ -65,16 +62,16 @@
         maxLevel: 4,
         subMaxLevel: 2,
         //logo: 'https://freemcserver.net/img/logo.png',
-        name: "FMCS HELP DEV",
+        name: "FMCS HELP DEV 2",
         //themeColor: '#65FF00',
         search: {
           noData: {
-            "/dev/": "No Results!",
+            "/en/": "No Results!",
             "/": "No Results!"
           },
           paths: "auto",
           placeholder: {
-            "/dev/": "Search",
+            "/en/": "Search",
             "/": "Search"
           }
         },
@@ -82,46 +79,42 @@
           style: "flat",
           note: {
             label: {
-              "/dev/": "Info",
+              "/en/": "Info",
               "/": "Info"
             }
           },
           tip: {
             label: {
-              "/dev/": "Success",
+              "/en/": "Success",
               "/": "Success"
             }
           },
           warning: {
             label: {
-              "/dev/": "Warning",
+              "/en/": "Warning",
               "/": "Warning"
             }
           },
           danger: {
             label: {
-              "/dev/": "Danger",
+              "/en/": "Danger",
               "/": "Danger"
             }
           }
         },
         notFoundPage: {
-          "/dev/": "_404.md",
-          "/": "_404.md"
+          "/en/": true,
+          "/": true
         },
         formatUpdated: "{HH}:{mm}:{ss} {DD}/{MM}/{YYYY}",
         plugins: [
           function(hook, vm) {
             hook.beforeEach(function(html) {
-              if (/githubusercontent\.com/.test(vm.route.file)) {
-                url = vm.route.file
-                  .replace("raw.githubusercontent.com", "github.com")
-                  .replace(/\/master/, "/edit/master");
-              } else {
-                return;
-              }
+              var url = 'https://github.com/soyabn9/fmcs-help/edit/master/' + vm.route.file;
               var editHtml = "[:memo: Edit Document](" + url + ")\n";
-              return editHtml + html + "\n\n----\n\n";
+              return (
+                editHtml + html + "\n----\n" + "Last Modified: {docsify-updated} "
+              );
             });
           }
         ]
